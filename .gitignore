@@ -1,0 +1,37 @@
+# Local game originals, investigation data, and session planning
+**/original/
+/analysis/
+/docs/superpowers/
+/language_switcher/test_data/
+/language_switcher/目前修改檔案.txt
+
+# Superseded Python implementation (the shipped tool is native C)
+/language_switcher/language_switcher.py
+/language_switcher/test_language_switcher.py
+
+# Generated binaries, caches, and editor files
+*.exe
+*.dll
+*.obj
+*.pdb
+*.ilk
+*.exp
+*.lib
+*.res
+*.manifest
+*.tmp
+*.log
+__pycache__/
+*.py[cod]
+.vs/
+.vscode/
+
+# Never publish game assets or local configuration
+*.bin
+*.sdat
+*.dat
+*.bk2
+steam_api.ini
+codex.ini
+CPY.ini
+setup.xml

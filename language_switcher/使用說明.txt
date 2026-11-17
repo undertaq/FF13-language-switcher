@@ -1,0 +1,56 @@
+FF XIII series language switcher — current-folder edition
+
+Standalone Windows x64 EXE: 15,872 bytes (15.5 KiB).
+No interpreter, .NET or additional runtime is required.
+Backups are OFF by default, including double-click and the three CMD entry points.
+
+Use
+1. Put FF13LanguageSwitch.exe in the game's main folder.
+2. Close that game and its launcher, then double-click the switcher.
+3. It detects the game beside the EXE and displays that exact folder.
+4. Yes = built-in Traditional Chinese; No = English; Cancel = no change.
+There is no install-directory picker, preset installation path or fallback search.
+The shell's working directory does not change the target; the EXE's folder is used.
+If no supported game is beside the EXE, the tool stops without touching another installation.
+
+Detected files
+XIII: FFXiiiLauncher.exe
+XIII-2: FFXiii2Launcher.exe
+LIGHTNING RETURNS: LRFF13.exe (and its steam_api.ini)
+Both supported LR INI variants work in any folder; no Chinese/English directory naming is required.
+The optional three CMD files must sit beside the EXE and use the same detection.
+
+修改與備份
+XIII / XIII-2：仍各以啟動器 3 bytes、主程式 4 bytes 啟用內建繁中，英文精確還原原始程式。
+LR：只切換 steam_api.ini 的 Language=tchinese / english，保留其餘所有位元組。
+LRFF13.exe 只校驗版本、不修改；文字、圖像、音訊、語音設定與存檔不改。
+未知版本或遊戲執行中會停止；預設不建立備份檔或 original 目錄。
+只有加上 --backup 或 --backup-dir 才啟用備份。啟用後先校驗，不覆寫既有備份；
+若備份損壞或無法建立備份則停止。只有實際需要修改的檔案才會備份。
+加上 --backup 時，使用所處理遊戲目錄內的以下位置：
+original\language_switcher\<SHA-256>\<相對檔名>（XIII）
+original\language_switcher\XIII-2\<SHA-256>\<相對檔名>
+original\language_switcher\LR\<SHA-256>\steam_api.ini
+不會到上一層尋找 original。先前的備份仍保留原位，不搬動或覆寫。
+普通寫入失敗時會嘗試回復；停電／強制終止後可重跑所需語言以統一狀態。
+
+Optional command line
+FF13LanguageSwitch.exe zh
+FF13LanguageSwitch.exe en
+FF13LanguageSwitch.exe status
+FF13LanguageSwitch.exe zh --backup
+FF13LanguageSwitch.exe en --backup-dir "my-backups"
+--quiet suppresses dialogs; exit code 0 = success, 1 = failure.
+--game-dir "folder" explicitly overrides the EXE folder; it is never guessed.
+--backup enables backups in the local layout shown above.
+--backup-dir "folder" enables backups and chooses that backup root.
+Without either option, backup paths are neither created nor validated.
+--game xiii / xiii2 / lr only selects a game format inside the target folder.
+Legacy lr-zh and lr-en are aliases of lr; they do not select any installation directory.
+If several game markers exist in one folder, explicitly select the format using --game.
+
+C source, build scripts and Python tests are developer files, not execution dependencies.
+
+Existing backup files are not deleted or moved by this setting change.
+No-backup mode retains ordinary write-failure rollback using memory.
+See README.md in the source repository for build instructions and development tests.
